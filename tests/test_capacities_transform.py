@@ -49,19 +49,19 @@ def test_aggregate_sums_and_filters():
 def test_apply_consolidation_noop_without_params():
     """A config with no consolidation block (e.g. IAMC) leaves capacities untouched."""
     caps = pd.DataFrame({"year": [2050, 2050], "region": ["DEU", "DEU"],
-                         "technology": ["elh2VRE", "storspv"], "value": [10.0, 5.0]})
+                         "technology": ["h2turbVRE", "storspv"], "value": [10.0, 5.0]})
     out = apply_consolidation(caps)
     pd.testing.assert_frame_equal(out, caps)
 
 
 def test_apply_consolidation_merges_vre_and_scales_battery():
-    """Consolidation block: elh2VRE→elh2 merge and storX→btin scaling."""
+    """Consolidation block: h2turbVRE→h2turb merge and storX→btin scaling."""
     caps = pd.DataFrame(
         {"year": [2050, 2050, 2050], "region": ["DEU", "DEU", "DEU"],
-         "technology": ["elh2VRE", "storspv", "storwindon"], "value": [10.0, 5.0, 2.0]})
+         "technology": ["h2turbVRE", "storspv", "storwindon"], "value": [10.0, 5.0, 2.0]})
     out = apply_consolidation(
         caps,
-        vre_to_primary={"elh2VRE": "elh2"},
+        vre_to_primary={"": "h2turb"},
         battery_scaling={"storspv": 4.0, "storwindon": 1.2},
     ).set_index("technology")["value"]
     assert out.loc["elh2"] == pytest.approx(10.0)

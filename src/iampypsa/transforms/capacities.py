@@ -98,7 +98,7 @@ def apply_consolidation(
     that have no ``consolidation`` block):
 
     1. **VRE-variant merge**: rename coupled VRE tech tokens to their primary token
-       (e.g. ``elh2VRE`` → ``elh2``).
+       (e.g. ``h2turbVRE`` → ``h2turb``).
     2. **Battery scaling**: fold storage tech rows into the charger token (``btin``) by
        multiplying each storage row by its scaling factor. If a ``btin`` row already carries
        a positive value, the storage rows are dropped instead (bidirectional-coupling guard).
